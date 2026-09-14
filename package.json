@@ -1,0 +1,16 @@
+{
+  "name": "gabriel-dantas-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gabriel Dantas — full-stack developer. Static portfolio site (site/) plus the CV source and project docs.",
+  "scripts": {
+    "start": "serve -s site -l ${PORT:-4173}",
+    "dev": "serve -s site -l 4173"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "serve": "^14.2.5"
+  }
+}

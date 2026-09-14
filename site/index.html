@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gabriel Dantas — Full-Stack Developer</title>
+<meta name="description" content="Full-stack developer who came to software from live drone-show engineering. Timeline of production systems built for construction and healthcare companies in Brazil."/>
+<script src="assets/tailwind.js"></script>
+<script src="assets/iconify.js"></script>
+<link href="assets/inter.css" rel="stylesheet"/>
+<!-- Animation Keyframe -->
+<style class="">
+/*
+Sequence animation intro.
+*/
+@keyframes fadeSlideIn {
+0% {
+opacity: 0;
+transform: translateY(30px);
+filter: blur(8px);
+}
+100% {
+opacity: 1;
+transform: translateY(0);
+filter: blur(0px);
+}
+}
+</style>
+<!-- Animation on Scroll Script -->
+<script>
+/*
+Sequence animation on scroll when visible.
+*/
+(function () {
+// Inject CSS for paused/running states
+const style = document.createElement("style");
+style.textContent = `
+/* Default: paused */
+.animate-on-scroll { animation-play-state: paused !important; }
+/* Activated by JS */
+.animate-on-scroll.animate { animation-play-state: running !important; }
+`;
+document.head.appendChild(style);
+const once = true;
+if (!window.__inViewIO) {
+window.__inViewIO = new IntersectionObserver((entries) => {
+entries.forEach((entry) => {
+if (entry.isIntersecting) {
+entry.target.classList.add("animate");
+if (once) window.__inViewIO.unobserve(entry.target);
+}
+});
+}, { threshold: 0.1, rootMargin: "0px 0px -5% 0px" });
+}
+window.initInViewAnimations = function (selector = ".animate-on-scroll") {
+document.querySelectorAll(selector).forEach((el) => {
+window.__inViewIO.observe(el); // observing twice is a no-op
+});
+};
+document.addEventListener("DOMContentLoaded", () => initInViewAnimations());
+})();
+</script>
+<style>
+body {
+font-family: 'Inter', sans-serif;
+background-color: #050505;
+}
+html { scroll-behavior: smooth; }
+/* Custom Grid Pattern */
+.grid-bg {
+background-image:
+linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+background-size: 60px 60px;
+mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
+-webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
+}
+/* Beam Animation CSS */
+.beam-border-v {
+position: absolute; top: 0; bottom: 0; left: 0; width: 1px;
+background: rgba(255,255,255,0.05); overflow: hidden; z-index: 10;
+}
+.beam-border-v::after {
+content: ''; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+background: linear-gradient(to bottom, transparent, #F97316, transparent);
+transform: translateY(-100%);
+animation: beam-drop 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+opacity: 0.7;
+}
+.beam-border-h {
+position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+background: rgba(255,255,255,0.05); overflow: hidden; z-index: 10;
+}
+.beam-border-h::after {
+content: ''; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+background: linear-gradient(to right, transparent, #F97316, transparent);
+transform: translateX(-100%);
+animation: beam-slide 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+animation-delay: 2.5s;
+opacity: 0.7;
+}
+@keyframes beam-drop {
+0% { transform: translateY(-100%); opacity: 0; }
+10% { opacity: 1; }
+90% { opacity: 1; }
+100% { transform: translateY(100%); opacity: 0; }
+}
+@keyframes beam-slide {
+0% { transform: translateX(-100%); opacity: 0; }
+10% { opacity: 1; }
+90% { opacity: 1; }
+100% { transform: translateX(100%); opacity: 0; }
+}
+/* Card Hover Effects */
+.floating-card {
+transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), z-index 0s;
+will-change: transform;
+}
+.floating-card:hover {
+transform: scale(1.1) translateY(-10px) !important;
+z-index: 50;
+box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+border-color: rgba(249, 115, 22, 0.3);
+}
+/* Button Animation */
+.btn-wrapper:hover .btn {
+background-color: #F97316;
+color: #000;
+border-color: #F97316;
+}
+.btn {
+transition: all 0.3s ease;
+}
+/* Timeline: the long beam that runs down the whole section */
+.timeline-line {
+position: absolute; top: 0; bottom: 0; left: 0; width: 1px;
+background: rgba(255,255,255,0.08);
+}
+/* Carousel (drone photos): native scroll-snap, JS only adds autoplay + dots */
+.carousel-track {
+scroll-snap-type: x mandatory;
+overflow-y: hidden;
+-ms-overflow-style: none; scrollbar-width: none;
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-slide { flex: 0 0 100%; width: 100%; scroll-snap-align: center; scroll-snap-stop: always; }
+.carousel-dot {
+width: 8px; height: 8px;
+border: 1px solid rgba(255,255,255,0.3);
+background: transparent;
+transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.carousel-dot:hover { border-color: #F97316; }
+.carousel-dot[aria-selected="true"] { background: #F97316; border-color: #F97316; transform: scale(1.25); }
+/* Autoplay progress bar under the current slide */
+.carousel-progress { height: 1px; background: rgba(255,255,255,0.08); overflow: hidden; }
+.carousel-progress > span {
+display: block; height: 100%; width: 100%; background: #F97316;
+transform-origin: left; transform: scaleX(0);
+}
+.carousel.is-playing .carousel-progress > span {
+animation: carousel-fill var(--carousel-interval, 5s) linear forwards;
+}
+@keyframes carousel-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) {
+html { scroll-behavior: auto; }
+.beam-border-v::after, .beam-border-h::after { animation: none; }
+.carousel.is-playing .carousel-progress > span { animation: none; }
+}
+</style>
+<script>
+// Configure Tailwind to include our custom 3D transform utilities
+tailwind.config = {
+theme: {
+extend: {
+// Add any custom theme extensions here if needed
+}
+},
+plugins: [
+function({ addUtilities }) {
+const rotateXUtilities = {};
+const rotateYUtilities = {};
+const rotateZUtilities = {};
+const rotateValues = [0, 5, 10, 15, 20, 30, 45, 75];
+const build = (axis, value) => ({
+[`--tw-rotate-${axis}`]: `${value}deg`,
+transform: `translate3d(var(--tw-translate-x, 0), var(--tw-translate-y, 0), var(--tw-translate-z, 0)) rotateX(var(--tw-rotate-x, 0)) rotateY(var(--tw-rotate-y, 0)) rotateZ(var(--tw-rotate-z, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1))`,
+});
+rotateValues.forEach((value) => {
+rotateXUtilities[`.rotate-x-${value}`] = build('x', value);
+rotateYUtilities[`.rotate-y-${value}`] = build('y', value);
+rotateZUtilities[`.rotate-z-${value}`] = build('z', value);
+if (value !== 0) {
+rotateXUtilities[`.-rotate-x-${value}`] = build('x', -value);
+rotateYUtilities[`.-rotate-y-${value}`] = build('y', -value);
+rotateZUtilities[`.-rotate-z-${value}`] = build('z', -value);
+}
+});
+// Perspective utilities
+const perspectiveUtilities = {
+".perspective-none": { perspective: "none" },
+".perspective-dramatic": { perspective: "100px" },
+".perspective-near": { perspective: "300px" },
+".perspective-normal": { perspective: "500px" },
+".perspective-midrange": { perspective: "800px" },
+".perspective-distant": { perspective: "1200px" },
+};
+// Transform style utilities
+const transformStyleUtilities = {
+".transform-style-preserve-3d": { "transform-style": "preserve-3d" },
+".transform-style-flat": { "transform-style": "flat" },
+};
+addUtilities({
+...rotateXUtilities,
+...rotateYUtilities,
+...rotateZUtilities,
+...perspectiveUtilities,
+...transformStyleUtilities,
+});
+}
+]
+};
+</script></head>
+<body class="text-neutral-300 min-h-screen flex flex-col overflow-x-hidden selection:bg-[#F97316] selection:text-black">
+<!-- Background (component) added by Aura -->
+<div class="aura-background-component top-0 w-full h-screen -z-10 saturate-0 brightness-50 mix-blend-screen absolute" data-alpha-mask="80" style="; mask-image: linear-gradient(to bottom, transparent, black 0%, black 80%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 0%, black 80%, transparent)"><div class="aura-background-component top-0 w-full -z-10 absolute h-full">
+<div class="absolute w-full h-full left-0 top-0 -z-10" data-us-project="fbC2LfIKPWAtosLcp0kG"></div>
+<script type="text/javascript">
+    !function(){if(!window.UnicornStudio){window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js",i.onload=function(){window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)},(document.head || document.body).appendChild(i)}}();
+  </script>
+</div></div>
+
+<!-- Navigation -->
+<nav class="w-full px-6 py-6 lg:px-12 flex justify-between items-center relative z-50 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0s_both]">
+<div class="beam-border-h"></div>
+<div class="flex gap-12 gap-x-12 gap-y-12 items-center">
+<!-- Logo -->
+<a class="flex items-center gap-3 text-white hover:text-[#F97316] transition-colors group" href="#">
+<svg aria-hidden="true" class="iconify iconify--simple-icons animate-[spin_10s_linear_infinite] text-2xl w-[24px] h-[24px]" data-icon="simple-icons:abstract" data-icon-replaced="true" data-icon-set="solar" data-solar="zip-file-bold-duotone" height="24" role="img" stroke-width="2" style="color: rgb(249, 115, 22); width: 24px; height: 24px" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M4.172 3.172C3 4.343 3 6.229 3 10v4c0 3.771 0 5.657 1.172 6.828S7.229 22 11 22h2c3.771 0 5.657 0 6.828-1.172S21 17.771 21 14v-4c0-3.771 0-5.657-1.172-6.828S16.771 2 13 2h-1l-2.5.003c-2.794.02-4.324.164-5.328 1.169" fill="#f97316" opacity=".5"></path><path d="M13.5 8H12v1c0 .471 0 .707.146.854c.147.146.383.146.854.146h.5c.471 0 .707 0 .854-.146c.146-.147.146-.383.146-.854s0-.707-.146-.854C14.207 8 13.97 8 13.5 8M9.646 6.146C9.5 6.293 9.5 6.53 9.5 7s0 .707.146.854C9.793 8 10.03 8 10.5 8H12V6h-1.5c-.471 0-.707 0-.854.146M13.5 4H12v2h1.5c.471 0 .707 0 .854-.146c.146-.147.146-.383.146-.854s0-.707-.146-.854C14.207 4 13.97 4 13.5 4M12 4V2l-2.5.003V3c0 .471 0 .707.146.854C9.793 4 10.03 4 10.5 4zm-2.5 9v-.125c0-.483.392-.875.875-.875h3.25c.483 0 .875.392.875.875V13a2.5 2.5 0 0 1-5 0" fill="#f97316"></path></svg>
+<span class="font-medium text-lg tracking-tight">Gabriel Dantas</span>
+</a>
+<div class="hidden md:block h-5 w-[1px] bg-neutral-800"></div>
+<!-- Links -->
+<div class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-500">
+<a class="hover:text-white transition-colors" href="#about">About</a>
+<a class="hover:text-white transition-colors" href="#timeline">Timeline</a>
+<a class="hover:text-white transition-colors" href="#contact">Contact</a>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-6">
+<span class="text-xs font-medium tracking-widest uppercase hidden sm:block text-neutral-500">Open to remote roles</span>
+<a class="group relative isolate inline-flex items-center justify-center gap-2 overflow-hidden rounded-none bg-transparent pt-2.5 pr-5 pb-2.5 pl-5 text-sm font-semibold text-white transition-all duration-300 hover:shadow-[0_0_30px_-5px_rgba(249,115,22,0.3)]" href="cv.pdf" download="Gabriel Dantas - Full-Stack Developer - CV.pdf" style="--spread: 90deg; --shimmer-color: #F97316; --speed: 3s; --cut: 1px;">
+<!-- Rotating Border Gradient Beam -->
+<div class="absolute inset-0 -z-20 overflow-hidden">
+<div class="absolute inset-[-100%] w-[300%] h-[300%] animate-[spin_3s_linear_infinite]">
+<div class="absolute inset-0" style="background: conic-gradient(from calc(270deg - (var(--spread) * 0.5)), transparent 0, var(--shimmer-color) var(--spread), transparent var(--spread));"></div>
+</div>
+</div>
+<!-- Inner Background Cutout -->
+<div class="absolute inset-[1px] -z-10 bg-[#050505] transition-colors duration-300 group-hover:bg-[#0A0A0A]"></div>
+<!-- Content -->
+<svg aria-hidden="true" class="iconify iconify--solar text-lg w-[18px] h-[18px]" data-icon="solar:file-download-bold-duotone" data-icon-replaced="true" height="1em" role="img" stroke-width="2" style="width: 18px; height: 18px; color: rgb(249, 115, 22)" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path class="" clip-rule="evenodd" d="M10 22h4c3.771 0 5.657 0 6.828-1.172S22 17.771 22 14v-.437c0-.873 0-1.529-.043-2.063h-4.052c-1.097 0-2.067 0-2.848-.105c-.847-.114-1.694-.375-2.385-1.066c-.692-.692-.953-1.539-1.067-2.386c-.105-.781-.105-1.75-.105-2.848l.01-2.834q0-.124.02-.244C11.121 2 10.636 2 10.03 2C6.239 2 4.343 2 3.172 3.172C2 4.343 2 6.229 2 10v4c0 3.771 0 5.657 1.172 6.828S6.229 22 10 22" fill="currentColor" fill-rule="evenodd" opacity=".5"></path><path class="" d="M9.013 19.047a.75.75 0 0 1-1.026 0l-2-1.875a.75.75 0 0 1 1.026-1.094l.737.69V13.5a.75.75 0 0 1 1.5 0v3.269l.737-.691a.75.75 0 0 1 1.026 1.094zM11.51 2.26l-.01 2.835c0 1.097 0 2.066.105 2.848c.114.847.375 1.694 1.067 2.385c.69.691 1.538.953 2.385 1.067c.781.105 1.751.105 2.848.105h4.052q.02.232.028.5H22c0-.268 0-.402-.01-.56a5.3 5.3 0 0 0-.958-2.641c-.094-.128-.158-.204-.285-.357C19.954 7.494 18.91 6.312 18 5.5c-.81-.724-1.921-1.515-2.89-2.161c-.832-.556-1.248-.834-1.819-1.04a6 6 0 0 0-.506-.154c-.384-.095-.758-.128-1.285-.14z" fill="currentColor"></path></svg>
+    CV
+</a>
+</div>
+</nav>
+
+<!-- Main Hero Grid -->
+<main class="flex-grow grid grid-cols-1 lg:grid-cols-12 px-6 lg:px-12 my-12 lg:my-20 gap-12 relative min-h-[80vh]">
+<!-- Background Grid -->
+<div class="absolute inset-0 grid-bg pointer-events-none z-0"></div>
+<!-- Left Column: Text -->
+<div class="lg:col-span-5 flex flex-col justify-center z-20 relative pt-10 lg:pt-0">
+<h1 class="lg:text-[7.5rem] leading-[0.9] uppercase animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.2s_both] text-6xl font-medium text-white tracking-tighter mb-8">
+    Full<br class=""/>
+<span class="text-neutral-600">St</span>ack
+</h1>
+<p class="flex items-center gap-3 text-lg lg:text-xl text-white font-light tracking-tight mb-6 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.3s_both]">
+<span class="w-2 h-2 bg-[#F97316] shrink-0"></span>
+From drone show engineering to full-stack development
+</p>
+<p class="text-lg text-neutral-400 max-w-md leading-relaxed mb-12 font-light animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.4s_both]">
+                Full-stack developer who ships production systems end to end — Python and TypeScript backends, React frontends, design systems, and the tests that keep them honest. I came to software from live drone-show engineering.
+            </p>
+<div class="flex flex-col items-start gap-4">
+<!-- Custom Button Component -->
+<a class="btn-wrapper group relative inline-flex justify-center items-center p-4 border border-neutral-800 hover:border-[#F97316] transition-colors duration-300" href="#timeline">
+<div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjQ5LCAxMTUsIDIyLCAwLjIpIi8+PC9zdmc+')] transition-opacity duration-300"></div>
+<!-- Corner accents -->
+<div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#F97316] opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-1 -translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0"></div>
+<div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#F97316] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-1 translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0"></div>
+<span class="btn flex items-center gap-3 bg-transparent text-white font-medium uppercase tracking-wider text-sm relative z-10">
+                        See the timeline
+                        <svg aria-hidden="true" class="iconify text-lg iconify--solar" data-icon="solar:arrow-right-up-bold-duotone" height="1em" role="img" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M17.47 15.53a.75.75 0 0 0 1.28-.53V6a.75.75 0 0 0-.75-.75H9a.75.75 0 0 0-.53 1.28z" fill="currentColor" fill-rule="evenodd"></path><path d="M5.47 17.47a.75.75 0 1 0 1.06 1.06l6.97-6.97l-1.06-1.06z" fill="currentColor" opacity=".5"></path></svg>
+</span>
+</a>
+<span class="text-xs text-neutral-600 uppercase tracking-widest pl-1">João Pessoa, Brazil · UTC−3 · Remote</span>
+</div>
+</div>
+<!-- Center Column: Projects and Clients carousel -->
+<div class="lg:col-span-5 relative flex flex-col justify-center z-20 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.8s_both]">
+<div class="flex items-center gap-3 mb-4">
+<span class="w-2 h-2 bg-[#F97316]"></span>
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Projects and Clients</span>
+</div>
+<div class="carousel" data-carousel data-interval="4000">
+<div class="carousel-track flex overflow-x-auto" tabindex="0" aria-roledescription="carousel" aria-label="Projects and clients">
+<figure class="carousel-slide min-w-full relative aspect-[4/3] bg-white border border-white/10 overflow-hidden flex items-center justify-center p-12 lg:p-20" role="group" aria-roledescription="slide" aria-label="1 of 6">
+<img alt="Copesolo logo" class="w-full h-full object-contain" src="img/copesolo-logo.png"/>
+<figcaption class="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm px-3 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">01 — Copesolo &amp; Concresolo · 2026–now</span></figcaption>
+</figure>
+<figure class="carousel-slide min-w-full relative aspect-[4/3] bg-[#2E3B47] border border-white/10 overflow-hidden flex items-center justify-center p-16 lg:p-24" role="group" aria-roledescription="slide" aria-label="2 of 6">
+<img alt="FaturaMed app icon" class="w-full h-full object-contain" src="img/faturamed-icon.svg"/>
+<figcaption class="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm px-3 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">02 — FaturaMed · 2026</span></figcaption>
+</figure>
+<figure class="carousel-slide min-w-full relative aspect-[4/3] bg-white border border-white/10 overflow-hidden flex items-center justify-center p-12 lg:p-20" role="group" aria-roledescription="slide" aria-label="3 of 6">
+<img alt="GBS Construtora logo" class="w-full h-full object-contain" src="img/gbs-logo.png"/>
+<figcaption class="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm px-3 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">03 — GBS Construtora · 2025</span></figcaption>
+</figure>
+<figure class="carousel-slide min-w-full relative aspect-[4/3] bg-[#050505] border border-white/10 overflow-hidden" role="group" aria-roledescription="slide" aria-label="4 of 6">
+<img aria-hidden="true" alt="" class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110" src="img/drone-05.jpg"/>
+<img alt="Gabriel walking through a fleet of show drones laid out on a beach before a live performance" class="relative w-full h-full object-contain" src="img/drone-05.jpg"/>
+<figcaption class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">04 — Alok · Drone shows</span></figcaption>
+</figure>
+<figure class="carousel-slide min-w-full relative aspect-[4/3] bg-[#050505] border border-white/10 overflow-hidden" role="group" aria-roledescription="slide" aria-label="5 of 6">
+<img aria-hidden="true" alt="" class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110" src="img/drone-02.jpg"/>
+<img alt="The Pixel Drone team featured on Shenzhen television" class="relative w-full h-full object-contain" src="img/drone-02.jpg"/>
+<figcaption class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">05 — Pixel Drone · Drone shows</span></figcaption>
+</figure>
+<figure class="carousel-slide min-w-full relative aspect-[4/3] bg-[#050505] border border-white/10 overflow-hidden" role="group" aria-roledescription="slide" aria-label="6 of 6">
+<img aria-hidden="true" alt="" class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110" src="img/drone-03.jpg"/>
+<img alt="A fleet of drones flying over a test field in Shenzhen" class="relative w-full h-full object-contain" src="img/drone-03.jpg"/>
+<figcaption class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">06 — Damoda · Shenzhen, China</span></figcaption>
+</figure>
+</div>
+<div class="carousel-progress mt-px"><span></span></div>
+<div class="flex items-center justify-between mt-4 gap-4">
+<div class="carousel-dots flex items-center gap-2" role="tablist" aria-label="Choose item"></div>
+<div class="flex items-center gap-6">
+<span class="carousel-counter text-[10px] font-mono text-neutral-500 uppercase tracking-widest" aria-live="polite">01 / 06</span>
+<div class="flex gap-px border border-white/10 bg-[#050505]">
+<button type="button" class="carousel-prev w-10 h-10 flex items-center justify-center text-neutral-500 hover:text-white hover:bg-white/5 transition-all border-r border-white/10" aria-label="Previous item">
+<svg aria-hidden="true" class="iconify iconify--solar" data-icon="solar:arrow-left-linear" height="1em" role="img" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20 12H4m0 0l6-6m-6 6l6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</button>
+<button type="button" class="carousel-next w-10 h-10 flex items-center justify-center text-neutral-500 hover:text-white hover:bg-white/5 transition-all" aria-label="Next item">
+<svg aria-hidden="true" class="iconify iconify--solar" data-icon="solar:arrow-right-linear" height="1em" role="img" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 12h16m0 0l-6-6m6 6l-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Stats & Sidebar -->
+<div class="lg:col-span-2 flex flex-col relative z-20 lg:border-l lg:border-white/5 lg:pl-8 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_1s_both]">
+<!-- Beam Border Vertical -->
+<div class="hidden lg:block beam-border-v" style="left: -1px;"></div>
+<div class="flex flex-col justify-center h-full gap-12">
+<!-- Stat 1 -->
+<div class="group cursor-default">
+<span class="block text-5xl font-light tracking-tighter text-neutral-600 group-hover:text-[#F97316] transition-colors duration-300">3</span>
+<span class="text-[10px] text-neutral-500 uppercase tracking-widest mt-2 block border-l-2 border-transparent group-hover:border-[#F97316] pl-2 transition-all">Production systems</span>
+</div>
+<!-- Stat 2 -->
+<div class="group cursor-default">
+<span class="block text-5xl font-light tracking-tighter text-neutral-600 group-hover:text-[#F97316] transition-colors duration-300">1.6k</span>
+<span class="text-[10px] text-neutral-500 uppercase tracking-widest mt-2 block border-l-2 border-transparent group-hover:border-[#F97316] pl-2 transition-all">Aircraft in one show</span>
+</div>
+<!-- Stat 3 -->
+<div class="group cursor-default">
+<span class="block text-5xl font-light tracking-tighter text-neutral-600 group-hover:text-[#F97316] transition-colors duration-300">100k</span>
+<span class="text-[10px] text-neutral-500 uppercase tracking-widest mt-2 block border-l-2 border-transparent group-hover:border-[#F97316] pl-2 transition-all">Live audience</span>
+</div>
+</div>
+</div>
+</main>
+
+<!-- About / Manifesto -->
+<section id="about" class="relative w-full bg-[#050505] px-6 lg:px-12 pt-24 lg:pt-32 pb-0 overflow-hidden border-t border-white/5 group/section">
+<!-- Ambient Background Glow -->
+<div class="absolute inset-0 overflow-hidden pointer-events-none">
+<div class="absolute top-[20%] left-[10%] w-[40vw] h-[40vw] bg-neutral-900/50 rounded-full blur-[120px] mix-blend-screen opacity-40"></div>
+<div class="absolute bottom-0 right-0 w-[30vw] h-[30vw] bg-[#F97316]/5 rounded-full blur-[100px] mix-blend-screen opacity-0 group-hover/section:opacity-100 transition-opacity duration-1000"></div>
+</div>
+<div class="max-w-[90rem] mx-auto relative z-10">
+<!-- Manifesto Text + portrait -->
+<div class="relative mb-32">
+<!-- Portrait: square card, slightly rounded, tilted 4° to the right, sitting just behind the text on large screens -->
+<div class="lg:absolute lg:right-0 lg:-top-10 w-56 lg:w-80 aspect-square rounded-lg rotate-[4deg] bg-neutral-900 border border-white/10 shadow-2xl overflow-hidden floating-card z-0 mb-12 lg:mb-0 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.2s_both]">
+<img alt="Gabriel Dantas" class="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500" src="img/eu.jpg" loading="lazy"/>
+<div class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 border border-white/10">
+<span class="text-[10px] font-mono uppercase text-white">Gabriel Dantas</span>
+</div>
+</div>
+<div class="max-w-6xl relative z-10">
+<h2 class="md:text-5xl lg:text-[4.5rem] leading-[1.1] lg:leading-[0.95] transition-colors duration-700 text-3xl font-normal text-neutral-700 tracking-tight text-left">
+                I came to software from <span class="text-white font-medium">live drone shows</span>, where a bug is visible to a stadium. Three production systems later, I build the whole thing: <span class="text-white font-medium">backend, frontend, design system and the tests</span> that keep it honest — and I <span class="text-white font-medium">own it in production</span>.
+            </h2>
+</div>
+</div>
+<!-- Metrics Grid -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 border-t border-white/10 py-12">
+<!-- Metric 01 -->
+<div class="flex flex-col group cursor-default animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.1s_both]">
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-5xl lg:text-[4rem] leading-none font-light text-white tracking-tighter group-hover:text-[#F97316] transition-colors duration-300">3</span>
+</div>
+<span class="text-xs font-semibold text-neutral-600 uppercase tracking-widest group-hover:text-white transition-colors">Systems in production</span>
+</div>
+<!-- Metric 02 -->
+<div class="flex flex-col group cursor-default animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.2s_both]">
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-5xl lg:text-[4rem] leading-none font-light text-white tracking-tighter group-hover:text-[#F97316] transition-colors duration-300">~100</span>
+</div>
+<span class="text-xs font-semibold text-neutral-600 uppercase tracking-widest group-hover:text-white transition-colors">Employees on one system</span>
+</div>
+<!-- Metric 03 -->
+<div class="flex flex-col group cursor-default animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.3s_both]">
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-5xl lg:text-[4rem] leading-none font-light text-white tracking-tighter group-hover:text-[#F97316] transition-colors duration-300">1,600</span>
+</div>
+<span class="text-xs font-semibold text-neutral-600 uppercase tracking-widest group-hover:text-white transition-colors">Aircraft synchronized</span>
+</div>
+<!-- Metric 04 -->
+<div class="flex flex-col group cursor-default animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.4s_both]">
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-5xl lg:text-[4rem] leading-none font-light text-white tracking-tighter group-hover:text-[#F97316] transition-colors duration-300">125</span>
+</div>
+<span class="text-xs font-semibold text-neutral-600 uppercase tracking-widest group-hover:text-white transition-colors">Automated tests on Copesolo</span>
+</div>
+</div>
+<!-- Logos Footer -->
+<div class="flex flex-col md:flex-row items-center justify-between gap-12 border-t border-white/10 py-12">
+<p class="text-[10px] font-bold text-neutral-600 uppercase tracking-[0.2em] shrink-0">Built for</p>
+<div class="flex flex-wrap justify-center md:justify-end items-center gap-x-12 gap-y-8 w-full">
+<a class="text-neutral-600 hover:text-white transition-colors duration-500 text-xs font-mono uppercase tracking-widest" href="#copesolo">Copesolo &amp; Concresolo</a>
+<a class="text-neutral-600 hover:text-white transition-colors duration-500 text-xs font-mono uppercase tracking-widest" href="#faturamed">FaturaMed</a>
+<a class="text-neutral-600 hover:text-white transition-colors duration-500 text-xs font-mono uppercase tracking-widest" href="#gbs">GBS Construtora</a>
+<a class="text-neutral-600 hover:text-white transition-colors duration-500 text-xs font-mono uppercase tracking-widest" href="#drones">Alok</a>
+<a class="text-neutral-600 hover:text-white transition-colors duration-500 text-xs font-mono uppercase tracking-widest" href="#drones">Pixel Drone</a>
+<a class="text-neutral-600 hover:text-white transition-colors duration-500 text-xs font-mono uppercase tracking-widest" href="#drones">Damoda</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Timeline Section -->
+<section id="timeline" class="overflow-hidden bg-[#080808] w-full border-white/5 border-t pt-24 pb-24 relative">
+<div class="px-6 lg:px-12 mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0s_both]">
+<div class="">
+<h2 class="text-4xl lg:text-5xl font-normal text-white tracking-tight mb-2">Timeline</h2>
+<p class="text-neutral-500">From drone shows to production software. 2024 → today.</p>
+</div>
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">5 chapters · 6 companies · 1 open-source project</span>
+</div>
+
+<div class="px-6 lg:px-12 max-w-[90rem] mx-auto">
+<div class="relative lg:pl-12">
+<!-- The line -->
+<div class="timeline-line hidden lg:block"></div>
+<div class="beam-border-v hidden lg:block"></div>
+
+<div class="space-y-24">
+
+<!-- Chapter 1: Drone shows -->
+<article id="drones" class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.1s_both]">
+<div class="hidden lg:block absolute -left-12 top-3 w-2 h-2 bg-[#F97316] -translate-x-1/2 -ml-px"></div>
+<div class="lg:col-span-3">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest block mb-3">Chapter 01</span>
+<span class="block text-5xl lg:text-[4rem] leading-none font-light text-white tracking-tighter">2024<span class="text-neutral-600">–26</span></span>
+<span class="text-xs font-semibold text-neutral-600 uppercase tracking-widest block mt-4">Drone shows</span>
+</div>
+<div class="lg:col-span-9">
+<div class="p-6 lg:p-8 border border-white/5 bg-[#0A0A0A] flex flex-col gap-8">
+<div>
+<h3 class="text-white font-medium text-2xl tracking-tight">Alok · Pixel Drone · Damoda</h3>
+<p class="text-neutral-500 text-sm mt-1">Drone Show Engineer · 3D Technical Artist</p>
+</div>
+
+<!-- Carousel -->
+<div class="carousel" data-carousel data-interval="5000">
+<div class="carousel-track flex overflow-x-auto" tabindex="0" aria-roledescription="carousel" aria-label="Drone show photos">
+<figure class="carousel-slide min-w-full relative aspect-[4/3] md:aspect-[16/9] bg-[#050505] border border-white/10 overflow-hidden" role="group" aria-roledescription="slide" aria-label="1 of 5">
+<img aria-hidden="true" alt="" class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110" src="img/drone-05.jpg"/>
+<img alt="Gabriel walking through a fleet of show drones laid out on a beach before a live performance" class="relative w-full h-full object-contain" src="img/drone-05.jpg" loading="lazy"/>
+<figcaption class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">Fig. 01 — Pre-show fleet layout</span></figcaption>
+</figure>
+<figure class="carousel-slide min-w-full relative aspect-[4/3] md:aspect-[16/9] bg-[#050505] border border-white/10 overflow-hidden" role="group" aria-roledescription="slide" aria-label="2 of 5">
+<img aria-hidden="true" alt="" class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110" src="img/drone-03.jpg"/>
+<img alt="Gabriel watching a fleet of drones fly over a test field in Shenzhen" class="relative w-full h-full object-contain" src="img/drone-03.jpg" loading="lazy"/>
+<figcaption class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">Fig. 02 — Fleet in flight, Shenzhen</span></figcaption>
+</figure>
+<figure class="carousel-slide min-w-full relative aspect-[4/3] md:aspect-[16/9] bg-[#050505] border border-white/10 overflow-hidden" role="group" aria-roledescription="slide" aria-label="3 of 5">
+<img aria-hidden="true" alt="" class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110" src="img/drone-02.jpg"/>
+<img alt="The Pixel Drone team featured on Shenzhen television" class="relative w-full h-full object-contain" src="img/drone-02.jpg" loading="lazy"/>
+<figcaption class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">Fig. 03 — Shenzhen TV feature</span></figcaption>
+</figure>
+<figure class="carousel-slide min-w-full relative aspect-[4/3] md:aspect-[16/9] bg-[#050505] border border-white/10 overflow-hidden" role="group" aria-roledescription="slide" aria-label="4 of 5">
+<img aria-hidden="true" alt="" class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110" src="img/drone-04.jpg"/>
+<img alt="Interview with the team during the Damoda engagement in Shenzhen" class="relative w-full h-full object-contain" src="img/drone-04.jpg" loading="lazy"/>
+<figcaption class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">Fig. 04 — Damoda, Shenzhen</span></figcaption>
+</figure>
+<figure class="carousel-slide min-w-full relative aspect-[4/3] md:aspect-[16/9] bg-[#050505] border border-white/10 overflow-hidden" role="group" aria-roledescription="slide" aria-label="5 of 5">
+<img aria-hidden="true" alt="" class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110" src="img/drone-01.jpg"/>
+<img alt="Gabriel holding two show drones during a night test" class="relative w-full h-full object-contain" src="img/drone-01.jpg" loading="lazy"/>
+<figcaption class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">Fig. 05 — Night test</span></figcaption>
+</figure>
+</div>
+<div class="carousel-progress mt-px"><span></span></div>
+<div class="flex items-center justify-between mt-4 gap-4">
+<div class="carousel-dots flex items-center gap-2" role="tablist" aria-label="Choose photo"></div>
+<div class="flex items-center gap-6">
+<span class="carousel-counter text-[10px] font-mono text-neutral-500 uppercase tracking-widest" aria-live="polite">01 / 05</span>
+<div class="flex gap-px border border-white/10 bg-[#050505]">
+<button type="button" class="carousel-prev w-10 h-10 flex items-center justify-center text-neutral-500 hover:text-white hover:bg-white/5 transition-all border-r border-white/10" aria-label="Previous photo">
+<svg aria-hidden="true" class="iconify iconify--solar" data-icon="solar:arrow-left-linear" height="1em" role="img" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20 12H4m0 0l6-6m-6 6l6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</button>
+<button type="button" class="carousel-next w-10 h-10 flex items-center justify-center text-neutral-500 hover:text-white hover:bg-white/5 transition-all" aria-label="Next photo">
+<svg aria-hidden="true" class="iconify iconify--solar" data-icon="solar:arrow-right-linear" height="1em" role="img" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 12h16m0 0l-6-6m6 6l-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-white/5 pt-8">
+<div>
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest block mb-2">Alok · 2024–2026</span>
+<p class="text-neutral-400 text-sm leading-relaxed font-light">Directed and engineered live drone shows: 3D animation choreographed and synchronized across fleets of up to 1,600 aircraft, performed for live audiences of 100,000.</p>
+</div>
+<div>
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest block mb-2">Pixel Drone · 2024–2026</span>
+<p class="text-neutral-400 text-sm leading-relaxed font-light">Built and validated show choreography for commercial drone productions, from 3D animation through flight-ready output.</p>
+</div>
+<div>
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest block mb-2">Damoda · Shenzhen, 2024</span>
+<p class="text-neutral-400 text-sm leading-relaxed font-light">Three-month engagement with a Chinese drone-show manufacturer, working across the animation-to-hardware pipeline.</p>
+</div>
+</div>
+<p class="text-neutral-400 text-sm leading-relaxed font-light border-t border-white/5 pt-6">Translated creative concepts into deterministic flight data — procedural design, timing, spatial constraints and physical execution in a system where a bug is visible to a stadium.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Unreal Engine</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Blender</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Maya</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Procedural animation</span>
+</div>
+</div>
+</div>
+</article>
+
+<!-- Chapter 2: GBS -->
+<article id="gbs" class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.1s_both]">
+<div class="hidden lg:block absolute -left-12 top-3 w-2 h-2 bg-[#F97316] -translate-x-1/2 -ml-px"></div>
+<div class="lg:col-span-3">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest block mb-3">Chapter 02</span>
+<span class="block text-5xl lg:text-[4rem] leading-none font-light text-white tracking-tighter">2025</span>
+<span class="text-xs font-semibold text-neutral-600 uppercase tracking-widest block mt-4">Feb – Nov · Freelance</span>
+</div>
+<div class="lg:col-span-9">
+<div class="p-6 lg:p-8 border border-white/5 bg-[#0A0A0A] grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="md:col-span-1">
+<div class="aspect-[4/3] bg-white border border-white/10 relative overflow-hidden flex items-center justify-center p-8 group">
+<img alt="GBS Construtora logo" class="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-500" src="img/gbs-logo.png" loading="lazy"/>
+<div class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm px-2 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">Fig. 06</span></div>
+</div>
+</div>
+<div class="md:col-span-2 flex flex-col gap-6">
+<div>
+<h3 class="text-white font-medium text-2xl tracking-tight">GBS Construtora</h3>
+<p class="text-neutral-500 text-sm mt-1">Full-Stack Developer · freelance · remote (Brazil)</p>
+</div>
+<ul class="space-y-3 text-neutral-400 text-sm leading-relaxed font-light">
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>Led the company's digital transformation as its sole engineer: designed and built a proprietary, closed-source production-control system, end to end.</li>
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>FastAPI + async SQLAlchemy on PostgreSQL; React + TypeScript + Tailwind frontend.</li>
+</ul>
+<div class="flex flex-wrap gap-2 mt-auto">
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">FastAPI</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">SQLAlchemy</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">PostgreSQL</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">React</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">TypeScript</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Tailwind</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+
+<!-- Chapter 3: Copesolo -->
+<article id="copesolo" class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.1s_both]">
+<div class="hidden lg:block absolute -left-12 top-3 w-2 h-2 bg-[#F97316] -translate-x-1/2 -ml-px"></div>
+<div class="lg:col-span-3">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest block mb-3">Chapter 03</span>
+<span class="block text-5xl lg:text-[4rem] leading-none font-light text-white tracking-tighter">2026</span>
+<span class="text-xs font-semibold text-neutral-600 uppercase tracking-widest block mt-4">Jan – Present · Employee</span>
+</div>
+<div class="lg:col-span-9">
+<div class="p-6 lg:p-8 border border-white/5 bg-[#0A0A0A] grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="md:col-span-1">
+<div class="aspect-[4/3] bg-white border border-white/10 relative overflow-hidden flex items-center justify-center p-8 group">
+<img alt="Copesolo logo" class="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-500" src="img/copesolo-logo.png" loading="lazy"/>
+<div class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm px-2 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">Fig. 07</span></div>
+</div>
+<p class="text-neutral-500 text-xs mt-4 leading-relaxed">Largest foundation and geotechnical engineering firm in Northeast Brazil, ~100 employees.</p>
+</div>
+<div class="md:col-span-2 flex flex-col gap-6">
+<div>
+<h3 class="text-white font-medium text-2xl tracking-tight">Copesolo &amp; Concresolo</h3>
+<p class="text-neutral-500 text-sm mt-1">Software Developer · Technology &amp; Innovation Lead · João Pessoa, Brazil</p>
+</div>
+<ul class="space-y-3 text-neutral-400 text-sm leading-relaxed font-light">
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>Sole engineer of the company-wide system covering production tracking, warehouse inventory, machinery control and HR (employee and equipment documentation).</li>
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>Built a WhatsApp automation that inverted daily reporting: job sites now report to the site engineer and the system on their own, instead of her contacting every site each day. Production data became constant and reliable.</li>
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>Built a two-regime payroll-bonus engine (hourly and per-meter) with row-level locking at payroll close, so concurrent requests cannot pay the same work twice.</li>
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>Wrote the project's architecture decision records, pinned every runtime, and generated API contracts from the backend so client and server cannot drift apart.</li>
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>66 backend tests (pytest), 46 frontend unit tests, 13 Playwright end-to-end suites; ARIA, keyboard navigation and screen-reader affordances throughout.</li>
+</ul>
+<div class="flex flex-wrap gap-2 mt-auto">
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">FastAPI</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">SQLAlchemy</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Alembic</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Supabase Postgres</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">React</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">TypeScript</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Tailwind</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Vitest</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Playwright</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">WhatsApp API</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+
+<!-- Chapter 4: FaturaMed -->
+<article id="faturamed" class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.1s_both]">
+<div class="hidden lg:block absolute -left-12 top-3 w-2 h-2 bg-[#F97316] -translate-x-1/2 -ml-px"></div>
+<div class="lg:col-span-3">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest block mb-3">Chapter 04</span>
+<span class="block text-5xl lg:text-[4rem] leading-none font-light text-white tracking-tighter">2026</span>
+<span class="text-xs font-semibold text-neutral-600 uppercase tracking-widest block mt-4">Apr – Aug · Freelance</span>
+</div>
+<div class="lg:col-span-9">
+<div class="p-6 lg:p-8 border border-white/5 bg-[#0A0A0A] grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="md:col-span-1">
+<div class="aspect-[4/3] bg-[#2E3B47] border border-white/10 relative overflow-hidden flex items-center justify-center p-10 group">
+<img alt="FaturaMed app icon" class="w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-all duration-500" src="img/faturamed-icon.svg" loading="lazy"/>
+<div class="absolute bottom-3 left-3 bg-black/50 backdrop-blur-sm px-2 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">Fig. 08</span></div>
+</div>
+<p class="text-neutral-500 text-xs mt-4 leading-relaxed">Medical revenue-recovery platform for doctors billing health insurers in Brazil. In production, with paying customers. The product reads insurer claim forms from photos and extracts structured data with AI.</p>
+</div>
+<div class="md:col-span-2 flex flex-col gap-6">
+<div>
+<h3 class="text-white font-medium text-2xl tracking-tight">FaturaMed</h3>
+<p class="text-neutral-500 text-sm mt-1">Frontend &amp; Design System Engineer · freelance · remote (Brazil)</p>
+</div>
+<ul class="space-y-3 text-neutral-400 text-sm leading-relaxed font-light">
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>Owned the entire web frontend: built the design system from brand identity to shipped UI — design tokens, typography, light and dark themes, and the shared component layer every screen uses.</li>
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>Designed and built the responsive application shell: collapsible sidebar (icon rail on desktop, drawer on mobile), unified with the topbar by a single height token.</li>
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>Built the data-visualization layer (donut, funnel) on @nivo, legible down to phone widths; added TanStack Query caching and a persistent shell, replacing per-screen refetches with skeleton-driven loading states.</li>
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>Established the project's frontend testing environment (Vitest + Testing Library), including a test asserting password reset never reveals whether an account exists.</li>
+</ul>
+<div class="flex flex-wrap gap-2 mt-auto">
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Next.js</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">React</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">TypeScript</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Tailwind</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">TanStack Query</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">@nivo</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Vitest</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+
+<!-- Chapter 5: Refund (open source) -->
+<article id="refund" class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.1s_both]">
+<div class="hidden lg:block absolute -left-12 top-3 w-2 h-2 bg-[#F97316] -translate-x-1/2 -ml-px"></div>
+<div class="lg:col-span-3">
+<span class="text-xs font-mono text-neutral-500 uppercase tracking-widest block mb-3">Chapter 05</span>
+<span class="block text-5xl lg:text-[4rem] leading-none font-light text-white tracking-tighter">2026</span>
+<span class="text-xs font-semibold text-neutral-600 uppercase tracking-widest block mt-4">Jul – Aug · Open source</span>
+</div>
+<div class="lg:col-span-9">
+<div class="p-6 lg:p-8 border border-white/5 bg-[#0A0A0A] grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="md:col-span-1">
+<a class="block aspect-[4/3] bg-[#050505] border border-white/10 relative overflow-hidden group transition-colors hover:border-[#F97316]/30" href="https://github.com/gabrieldborges/Refund-api" target="_blank" rel="noopener">
+<div class="absolute inset-4 border border-white/5 flex flex-col justify-between p-4">
+<div class="flex justify-between items-center">
+<div class="w-2 h-2 bg-[#F97316] rounded-full"></div>
+<div class="text-[10px] font-mono text-neutral-600">ADR.011</div>
+</div>
+<div class="space-y-2">
+<div class="h-1 w-full bg-white/10"><div class="h-full w-3/4 bg-white/20"></div></div>
+<div class="h-1 w-2/3 bg-white/10"></div>
+<div class="h-1 w-1/2 bg-white/10"></div>
+</div>
+</div>
+<div class="absolute center w-32 h-32 bg-[#F97316]/10 rounded-full blur-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:bg-[#F97316]/20 transition-colors"></div>
+<div class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm px-2 py-1 border border-white/10"><span class="text-[10px] font-mono uppercase text-white">Fig. 09</span></div>
+</a>
+<p class="text-neutral-500 text-xs mt-4 leading-relaxed">The only code of mine a recruiter can open. Same practices as the company systems, in public: architecture decision records, contract tests, typed settings, a deploy that is checked, not assumed.</p>
+</div>
+<div class="md:col-span-2 flex flex-col gap-6">
+<div>
+<h3 class="text-white font-medium text-2xl tracking-tight">Refund</h3>
+<p class="text-neutral-500 text-sm mt-1">Full-stack refund-management system · solo · deployed on Railway</p>
+</div>
+<ul class="space-y-3 text-neutral-400 text-sm leading-relaxed font-light">
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>API in FastAPI with Clean Architecture, governed by 11 architecture decision records: layered API, typed settings that refuse to boot on bad config, Problem Details errors, structured logging, contract testing, coverage, abuse controls, orphan-file sweep, container.</li>
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>Two test suites: a fast mocked one that proves the repositories build the right SQL, and an integration one against PostgreSQL 18 and MinIO that proves the database and object storage behave as assumed.</li>
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>Liveness and readiness split on purpose, so a database outage stops traffic instead of restarting every instance in a loop.</li>
+<li class="flex gap-3"><span class="w-1.5 h-1.5 bg-[#F97316] shrink-0 mt-2"></span>React 19 frontend with TanStack Query, component tests for the shell, theme and reduced-motion, and CI on both repositories.</li>
+</ul>
+<div class="flex flex-wrap gap-6 text-xs font-mono uppercase tracking-widest text-neutral-500">
+<a class="hover:text-[#F97316] transition-colors" href="https://github.com/gabrieldborges/Refund-api" target="_blank" rel="noopener">Refund-api ↗</a>
+<a class="hover:text-[#F97316] transition-colors" href="https://github.com/gabrieldborges/Refund" target="_blank" rel="noopener">Refund ↗</a>
+<a class="hover:text-[#F97316] transition-colors" href="https://independent-fascination-production-feea.up.railway.app/" target="_blank" rel="noopener">Live demo ↗</a>
+</div>
+<div class="flex flex-wrap gap-2 mt-auto">
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">FastAPI</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">SQLAlchemy</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">PostgreSQL</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">S3</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Docker</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">pytest</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">React 19</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">TypeScript</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">Vitest</span>
+<span class="px-2 py-1 bg-white/10 border border-white/5 text-[10px] text-white uppercase">GitHub Actions</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer id="contact" class="w-full bg-[#050505] relative pt-20 pb-0 overflow-hidden border-t border-white/5">
+<!-- Contact Pill -->
+<div class="flex z-30 pr-6 pl-6 absolute right-0 left-0 justify-center">
+<a class="bg-[#0A0A0A] border border-white/10 rounded-full py-3 pl-6 pr-2 flex items-center gap-4 shadow-2xl max-w-md w-full group hover:border-[#F97316]/50 transition-colors animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.1s_both]" href="mailto:gabrieldantas1404@icloud.com">
+<span class="text-white text-sm w-full font-mono truncate">gabrieldantas1404@icloud.com</span>
+<span class="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center group-hover:bg-[#F97316] transition-colors shrink-0">
+<svg aria-hidden="true" class="iconify iconify--solar" data-icon="solar:arrow-right-bold-duotone" height="1em" role="img" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M3.25 12a.75.75 0 0 1 .75-.75h9.25v1.5H4a.75.75 0 0 1-.75-.75" fill="currentColor" fill-rule="evenodd" opacity=".5"></path><path d="M13.25 12.75V18a.75.75 0 0 0 1.28.53l6-6a.75.75 0 0 0 0-1.06l-6-6a.75.75 0 0 0-1.28.53z" fill="currentColor"></path></svg>
+</span>
+</a>
+</div>
+<div class="w-full px-6 lg:px-12 py-20 grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-20">
+<!-- Left -->
+<div class="lg:col-span-7">
+<h2 class="text-5xl lg:text-[6rem] leading-[0.9] font-medium text-white tracking-tighter mb-10">
+                    Design.
+                    <span class="text-neutral-600">Build.</span>
+                    Ship.
+                </h2>
+<div class="flex flex-wrap gap-8 text-xs font-mono uppercase tracking-widest text-neutral-500">
+<a class="hover:text-white transition-colors" href="https://github.com/gabrieldborges" target="_blank" rel="noopener">GitHub</a>
+<a class="hover:text-white transition-colors" href="https://linkedin.com/in/gabriel3dborges" target="_blank" rel="noopener">LinkedIn</a>
+<a class="hover:text-white transition-colors" href="mailto:gabrieldantas1404@icloud.com">Email</a>
+</div>
+</div>
+<!-- Right (Orange Card) -->
+<div class="lg:col-span-5 flex lg:justify-end items-center">
+<a class="w-full max-w-sm bg-[#F97316] p-8 rounded-none relative overflow-hidden group transform hover:-translate-y-2 transition-transform duration-500 block" href="cv.pdf" download="Gabriel Dantas - Full-Stack Developer - CV.pdf">
+<svg aria-hidden="true" class="iconify absolute -right-4 -top-4 text-black/10 text-9xl rotate-12 iconify--solar" data-icon="solar:code-square-bold-duotone" height="1em" role="img" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path class="" d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2s7.071 0 8.535 1.464C22 4.93 22 7.286 22 12s0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12" fill="currentColor" opacity=".5"></path><path class="" d="M13.488 6.446a.75.75 0 0 1 .53.918l-2.588 9.66a.75.75 0 0 1-1.449-.389l2.589-9.659a.75.75 0 0 1 .918-.53M14.97 8.47a.75.75 0 0 1 1.06 0l.209.208c.635.635 1.165 1.165 1.529 1.642c.384.504.654 1.036.654 1.68s-.27 1.176-.654 1.68c-.364.477-.894 1.007-1.53 1.642l-.208.208a.75.75 0 1 1-1.06-1.06l.171-.172c.682-.682 1.139-1.14 1.434-1.528c.283-.37.347-.586.347-.77s-.064-.4-.347-.77c-.295-.387-.752-.846-1.434-1.528l-.171-.172a.75.75 0 0 1 0-1.06m-7 0a.75.75 0 0 1 1.06 1.06l-.171.172c-.682.682-1.138 1.14-1.434 1.528c-.283.37-.346.586-.346.77s.063.4.346.77c.296.387.752.846 1.434 1.528l.172.172a.75.75 0 1 1-1.061 1.06l-.208-.208c-.636-.635-1.166-1.165-1.53-1.642c-.384-.504-.653-1.036-.653-1.68s.27-1.176.653-1.68c.364-.477.894-1.007 1.53-1.642z" fill="currentColor"></path></svg>
+<div class="relative z-10">
+<h3 class="text-2xl font-bold text-black mb-4 tracking-tight">Open to remote roles</h3>
+<p class="text-black/70 text-sm font-medium leading-relaxed mb-8">
+                            Full-stack, contractor, UTC−3 with full overlap with US hours. Download the one-page CV.
+                        </p>
+<div class="flex items-center justify-between border-t border-black/10 pt-4">
+<span class="text-xs font-bold uppercase tracking-widest text-black">CV · PDF</span>
+<svg aria-hidden="true" class="iconify text-xl text-black iconify--solar" data-icon="solar:arrow-right-up-bold-duotone" height="1em" role="img" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M17.47 15.53a.75.75 0 0 0 1.28-.53V6a.75.75 0 0 0-.75-.75H9a.75.75 0 0 0-.53 1.28z" fill="currentColor" fill-rule="evenodd"></path><path d="M5.47 17.47a.75.75 0 1 0 1.06 1.06l6.97-6.97l-1.06-1.06z" fill="currentColor" opacity=".5"></path></svg>
+</div>
+</div>
+</a>
+</div>
+</div>
+<!-- Watermark -->
+<div class="relative w-full overflow-hidden pointer-events-none select-none pt-12">
+<h1 class="text-[20vw] leading-none font-bold text-white/5 text-center -mb-12 tracking-tighter" style="font-family: 'Space Grotesk', 'Inter', sans-serif;">
+                DANTAS
+            </h1>
+<div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#050505] to-transparent"></div>
+</div>
+<div class="absolute bottom-6 w-full flex justify-center z-30">
+<p class="text-[10px] text-neutral-700 font-mono uppercase tracking-widest">© 2026 Gabriel Dantas.</p>
+</div>
+</footer>
+
+
+<!-- Sticky call to the timeline (hidden once the timeline is in view) -->
+<a id="timeline-cta" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] group isolate inline-flex items-center justify-center gap-3 overflow-hidden rounded-none bg-transparent pt-3 pr-6 pb-3 pl-6 text-xs font-semibold uppercase tracking-widest text-white transition-all duration-500 hover:shadow-[0_0_30px_-5px_rgba(249,115,22,0.4)]" href="#timeline" style="--spread: 90deg; --shimmer-color: #F97316; --speed: 3s; --cut: 1px;">
+<div class="absolute inset-0 -z-20 overflow-hidden">
+<div class="absolute inset-[-100%] w-[300%] h-[300%] animate-[spin_3s_linear_infinite]">
+<div class="absolute inset-0" style="background: conic-gradient(from calc(270deg - (var(--spread) * 0.5)), transparent 0, var(--shimmer-color) var(--spread), transparent var(--spread));"></div>
+</div>
+</div>
+<div class="absolute inset-[1px] -z-10 bg-[#050505]/90 backdrop-blur-md transition-colors duration-300 group-hover:bg-[#0A0A0A]"></div>
+<span class="w-2 h-2 bg-[#F97316]"></span>
+Explore the timeline
+<span class="text-[#F97316]"><svg aria-hidden="true" class="iconify text-lg iconify--solar motion-safe:animate-bounce" data-icon="solar:alt-arrow-down-bold-duotone" height="1em" role="img" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg">
+<path d="m8.303 12.404l3.327 3.431c.213.22.527.22.74 0l6.43-6.63C19.201 8.79 18.958 8 18.43 8h-5.723z" fill="currentColor">
+</path>
+<path d="M11.293 8H5.57c-.528 0-.771.79-.37 1.205l2.406 2.481z" fill="currentColor" opacity=".5"></path>
+</svg></span>
+</a>
+<style>
+#timeline-cta.is-hidden { opacity: 0; transform: translate(-50%, 16px); pointer-events: none; }
+</style>
+<script>
+(function () {
+const cta = document.getElementById('timeline-cta');
+const timeline = document.getElementById('timeline');
+new IntersectionObserver((entries) => {
+entries.forEach((entry) => {
+// Hide while any part of the timeline is on screen, or once the reader has scrolled past it
+const pastIt = entry.boundingClientRect.bottom < 0;
+cta.classList.toggle('is-hidden', entry.isIntersecting || pastIt);
+});
+}, { threshold: 0 }).observe(timeline);
+})();
+</script>
+
+<!-- Carousel: autoplay + dots + counter on top of native scroll-snap -->
+<script>
+(function () {
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+document.querySelectorAll('[data-carousel]').forEach((root) => {
+const track = root.querySelector('.carousel-track');
+const slides = Array.from(track.querySelectorAll('.carousel-slide'));
+const dotsWrap = root.querySelector('.carousel-dots');
+const counter = root.querySelector('.carousel-counter');
+const progress = root.querySelector('.carousel-progress > span');
+const interval = Number(root.dataset.interval) || 5000;
+const total = slides.length;
+let current = 0;
+let timer = null;
+
+root.style.setProperty('--carousel-interval', interval + 'ms');
+
+// Build one dot per slide
+const dots = slides.map((_, i) => {
+const dot = document.createElement('button');
+dot.type = 'button';
+dot.className = 'carousel-dot';
+dot.setAttribute('role', 'tab');
+dot.setAttribute('aria-label', 'Photo ' + (i + 1) + ' of ' + total);
+dot.addEventListener('click', () => { goTo(i); restart(); });
+dotsWrap.appendChild(dot);
+return dot;
+});
+
+const pad = (n) => String(n).padStart(2, '0');
+
+function render() {
+dots.forEach((d, i) => d.setAttribute('aria-selected', i === current ? 'true' : 'false'));
+counter.textContent = pad(current + 1) + ' / ' + pad(total);
+// Restart the progress bar animation
+if (progress) { progress.style.animation = 'none'; void progress.offsetWidth; progress.style.animation = ''; }
+}
+
+function goTo(i) {
+current = (i + total) % total;
+track.scrollTo({ left: current * track.clientWidth, behavior: reduceMotion ? 'auto' : 'smooth' });
+render();
+}
+
+// Keep `current` in sync when the user swipes or scrolls manually
+let scrollRaf = null;
+track.addEventListener('scroll', () => {
+if (scrollRaf) return;
+scrollRaf = requestAnimationFrame(() => {
+scrollRaf = null;
+const idx = Math.round(track.scrollLeft / track.clientWidth);
+if (idx !== current) { current = idx; render(); }
+});
+});
+
+function start() {
+if (reduceMotion || timer) return;
+root.classList.add('is-playing');
+timer = setInterval(() => goTo(current + 1), interval);
+}
+function stop() {
+clearInterval(timer); timer = null;
+root.classList.remove('is-playing');
+}
+function restart() { stop(); start(); }
+
+root.querySelector('.carousel-prev').addEventListener('click', () => { goTo(current - 1); restart(); });
+root.querySelector('.carousel-next').addEventListener('click', () => { goTo(current + 1); restart(); });
+
+// Pause while the pointer or keyboard focus is on the carousel, and while the tab is hidden
+root.addEventListener('mouseenter', stop);
+root.addEventListener('mouseleave', start);
+root.addEventListener('focusin', stop);
+root.addEventListener('focusout', start);
+track.addEventListener('touchstart', stop, { passive: true });
+track.addEventListener('touchend', start, { passive: true });
+document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+track.addEventListener('keydown', (e) => {
+if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+});
+
+// Only autoplay while the carousel is on screen
+new IntersectionObserver((entries) => {
+entries.forEach((entry) => entry.isIntersecting ? start() : stop());
+}, { threshold: 0.4 }).observe(root);
+
+render();
+});
+})();
+</script>
+</body></html>

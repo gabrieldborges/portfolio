@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>FaturaMed — ícone do app, camada foreground (Android adaptive, fundo transparente)</title>
+  <!-- Mesma geometria do app-icon.svg, sem o fundo. O fundo do adaptive icon é a cor sólida #2E3B47. -->
+  <g fill="#FFFFFF" transform="translate(204.8 204.8) scale(12.8)">
+    <rect x="18" y="6" width="9" height="38" rx="2.5"/>
+    <rect x="3.5" y="20.5" width="38" height="9" rx="2.5"/>
+    <circle cx="37" cy="10.5" r="7.5"/>
+  </g>
+</svg>
