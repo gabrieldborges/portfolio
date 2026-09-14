@@ -58,7 +58,7 @@ python3 -c "import re;print(re.findall(rb'/Count (\\d+)',open('Gabriel Dantas - 
 - [ ] Confirmar período da **Faculdade Méliès** (deduzido 2022–2024 a partir de
       "2 anos, terminou em 2024")
 - [ ] Confirmar cargo formal na **Pixel Drone** (assumido Drone Show Engineer)
-- [ ] Adicionar o **link do portfólio** quando o site existir
+- [x] Link do portfólio no currículo (2026-09-14)
 - [ ] Algum número da **GBS Construtora** (obras, usuários, tempo até produção)
 - [ ] Confirmar o título em inglês na **Copesolo** (usado: Software Developer · Technology & Innovation Lead)
 
@@ -138,11 +138,10 @@ O `.gitignore` deixa de fora `node_modules/` e o PDF antigo de 11 MB
 - [ ] Gabriel revisar visual e textos (legendas das fotos são deduções: "Fig. 01 — Pre-show
       fleet layout", "Fig. 02 — Fleet in flight, Shenzhen", "Fig. 03 — Shenzhen TV feature",
       "Fig. 04 — Damoda, Shenzhen", "Fig. 05 — Night test")
-- [ ] Publicar: `git commit`, criar o repo no GitHub, `git push`, conectar na Railway
+- [x] Publicado em **https://gabrieldantas.up.railway.app** (repo github.com/gabrieldborges/portfolio, Railway, 2026-09-14)
 - [ ] **Domínio.** Recomendação mantida: domínio pessoal, separado de `gsmotion.com`
-- [ ] Adicionar o link do site no currículo depois de publicado
-- [ ] Publicar os textos de perfil: `docs/linkedin-profile.md` (campo a campo) e
-      `docs/github-profile.md` (README do repositório `gabrieldborges`); trocar `[site]` pelo domínio
+- [x] Link do site no currículo, README do perfil e textos do LinkedIn (2026-09-14)
+- [ ] Publicar os textos do LinkedIn (`docs/linkedin-profile.md`, campo a campo). O README do GitHub já está no ar.
 
 ## 3b. GitHub — feito em 2026-09-14
 

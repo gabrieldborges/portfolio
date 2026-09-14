@@ -1,8 +1,7 @@
 # GitHub — profile README
 
 > Atualizado: 2026-09-14. **Já publicado** em github.com/gabrieldborges (README do repositório
-> `gabrieldborges`). O conteúdo abaixo do separador é a cópia do que está no ar. Quando o site
-> for publicado, adicionar o link dele na linha de contatos.
+> `gabrieldborges`). O conteúdo abaixo do separador é a cópia do que está no ar.
 
 ---
 
@@ -13,7 +12,7 @@
 I came to software from **live drone-show engineering**, directing 3D animation synchronized across fleets of up to 1,600 aircraft for audiences of 100,000. In that world a bug is visible to a stadium. I build software the same way: deterministic, tested, owned in production.
 
 📍 João Pessoa, Brazil · UTC−3 · open to remote contractor roles
-🔗 [LinkedIn](https://www.linkedin.com/in/gabriel3dborges) · gabrieldantas1404@icloud.com
+🔗 [Portfolio](https://gabrieldantas.up.railway.app) · [CV (PDF)](https://gabrieldantas.up.railway.app/cv.pdf) · [LinkedIn](https://www.linkedin.com/in/gabriel3dborges) · gabrieldantas1404@icloud.com
 
 ## What I've built
 
@@ -25,7 +24,7 @@ I came to software from **live drone-show engineering**, directing 3D animation 
 | **2026** | **Refund** · open source, solo | Full-stack refund-management system, built alone and deployed. API: FastAPI with Clean Architecture, 11 ADRs, typed settings, Problem Details errors, structured logging, contract tests, mocked + integration test suites, Docker, CI. Frontend: React 19, TypeScript, Tailwind 4, TanStack Query, component tests. → [Refund-api](https://github.com/gabrieldborges/Refund-api) · [Refund](https://github.com/gabrieldborges/Refund) · [live](https://independent-fascination-production-feea.up.railway.app/) |
 | **2024 – 2026** | **Alok · Pixel Drone · Damoda** · Drone Show Engineer | Live shows with up to 1,600 synchronized aircraft; three months inside a drone-show manufacturer in Shenzhen, working the animation-to-hardware pipeline. |
 
-> The company systems above are private or client-owned. **Refund is the public one**: same practices, open code. Read the [ADRs](https://github.com/gabrieldborges/Refund-api/tree/main/docs/decisions) first.
+> The company systems above are private or client-owned. **Refund is the public one**: same practices, open code. Read the [ADRs](https://github.com/gabrieldborges/Refund-api/tree/main/docs/decisions) first. The [portfolio site](https://gabrieldantas.up.railway.app) tells the whole story as a timeline.
 
 ## How I work
 

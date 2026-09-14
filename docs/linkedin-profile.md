@@ -32,7 +32,7 @@ Stack: Python, FastAPI, SQLAlchemy, PostgreSQL · TypeScript, React, Next.js, Ta
 
 Open to remote, contractor roles with US and European teams. Based in João Pessoa, Brazil (UTC−3, full overlap with US hours). English fluent.
 
-Portfolio and CV: [link do site quando publicado]
+Portfolio and CV: https://gabrieldantas.up.railway.app
 ```
 
 ## Experience
@@ -182,4 +182,4 @@ Portuguese — Native · English — Full professional proficiency · Spanish �
 - **Custom URL:** linkedin.com/in/gabriel3dborges (já é)
 - **Location:** João Pessoa, Paraíba, Brazil
 - **Open to work:** Software Developer, Full Stack Developer, Backend Developer, Frontend Developer · Remote · Contract e Full-time
-- **Website no perfil:** o link do site quando publicado
+- **Website no perfil:** https://gabrieldantas.up.railway.app
