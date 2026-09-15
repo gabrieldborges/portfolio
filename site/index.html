@@ -236,25 +236,23 @@ addUtilities({
 </div></div>
 
 <!-- Navigation -->
-<nav class="w-full px-6 py-6 lg:px-12 flex justify-between items-center relative z-50 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0s_both]">
+<nav class="w-full px-6 py-6 lg:px-12 grid grid-cols-[1fr_auto_1fr] items-center gap-6 relative z-50 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0s_both]">
 <div class="beam-border-h"></div>
-<div class="flex gap-12 gap-x-12 gap-y-12 items-center">
-<!-- Logo -->
-<a class="flex items-center gap-3 text-white hover:text-[#F97316] transition-colors group" href="#">
-<svg aria-hidden="true" class="iconify iconify--simple-icons animate-[spin_10s_linear_infinite] text-2xl w-[24px] h-[24px]" data-icon="simple-icons:abstract" data-icon-replaced="true" data-icon-set="solar" data-solar="zip-file-bold-duotone" height="24" role="img" stroke-width="2" style="color: rgb(249, 115, 22); width: 24px; height: 24px" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M4.172 3.172C3 4.343 3 6.229 3 10v4c0 3.771 0 5.657 1.172 6.828S7.229 22 11 22h2c3.771 0 5.657 0 6.828-1.172S21 17.771 21 14v-4c0-3.771 0-5.657-1.172-6.828S16.771 2 13 2h-1l-2.5.003c-2.794.02-4.324.164-5.328 1.169" fill="#f97316" opacity=".5"></path><path d="M13.5 8H12v1c0 .471 0 .707.146.854c.147.146.383.146.854.146h.5c.471 0 .707 0 .854-.146c.146-.147.146-.383.146-.854s0-.707-.146-.854C14.207 8 13.97 8 13.5 8M9.646 6.146C9.5 6.293 9.5 6.53 9.5 7s0 .707.146.854C9.793 8 10.03 8 10.5 8H12V6h-1.5c-.471 0-.707 0-.854.146M13.5 4H12v2h1.5c.471 0 .707 0 .854-.146c.146-.147.146-.383.146-.854s0-.707-.146-.854C14.207 4 13.97 4 13.5 4M12 4V2l-2.5.003V3c0 .471 0 .707.146.854C9.793 4 10.03 4 10.5 4zm-2.5 9v-.125c0-.483.392-.875.875-.875h3.25c.483 0 .875.392.875.875V13a2.5 2.5 0 0 1-5 0" fill="#f97316"></path></svg>
-<span class="font-medium text-lg tracking-tight">Gabriel Dantas</span>
-</a>
-<div class="hidden md:block h-5 w-[1px] bg-neutral-800"></div>
-<!-- Links -->
+<!-- Links (left) -->
 <div class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-500">
 <a class="hover:text-white transition-colors" href="#about">About</a>
 <a class="hover:text-white transition-colors" href="#timeline">Timeline</a>
 <a class="hover:text-white transition-colors" href="#contact">Contact</a>
 </div>
-</div>
-<!-- Actions -->
-<div class="flex items-center gap-6">
-<span class="text-xs font-medium tracking-widest uppercase hidden sm:block text-neutral-500">Open to remote roles</span>
+<div class="md:hidden"></div>
+<!-- Name (center) -->
+<a class="flex items-center justify-center gap-3 text-white hover:text-[#F97316] transition-colors group" href="#">
+<svg aria-hidden="true" class="iconify iconify--simple-icons animate-[spin_10s_linear_infinite] text-2xl w-[24px] h-[24px]" data-icon="simple-icons:abstract" data-icon-replaced="true" data-icon-set="solar" data-solar="zip-file-bold-duotone" height="24" role="img" stroke-width="2" style="color: rgb(249, 115, 22); width: 24px; height: 24px" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M4.172 3.172C3 4.343 3 6.229 3 10v4c0 3.771 0 5.657 1.172 6.828S7.229 22 11 22h2c3.771 0 5.657 0 6.828-1.172S21 17.771 21 14v-4c0-3.771 0-5.657-1.172-6.828S16.771 2 13 2h-1l-2.5.003c-2.794.02-4.324.164-5.328 1.169" fill="#f97316" opacity=".5"></path><path d="M13.5 8H12v1c0 .471 0 .707.146.854c.147.146.383.146.854.146h.5c.471 0 .707 0 .854-.146c.146-.147.146-.383.146-.854s0-.707-.146-.854C14.207 8 13.97 8 13.5 8M9.646 6.146C9.5 6.293 9.5 6.53 9.5 7s0 .707.146.854C9.793 8 10.03 8 10.5 8H12V6h-1.5c-.471 0-.707 0-.854.146M13.5 4H12v2h1.5c.471 0 .707 0 .854-.146c.146-.147.146-.383.146-.854s0-.707-.146-.854C14.207 4 13.97 4 13.5 4M12 4V2l-2.5.003V3c0 .471 0 .707.146.854C9.793 4 10.03 4 10.5 4zm-2.5 9v-.125c0-.483.392-.875.875-.875h3.25c.483 0 .875.392.875.875V13a2.5 2.5 0 0 1-5 0" fill="#f97316"></path></svg>
+<span class="font-medium text-xl md:text-2xl lg:text-3xl tracking-tight whitespace-nowrap">Gabriel Dantas</span>
+</a>
+<!-- Actions (right) -->
+<div class="flex items-center justify-end gap-6">
+<span class="text-xs font-medium tracking-widest uppercase hidden lg:block text-neutral-500">Open to remote roles</span>
 <a class="group relative isolate inline-flex items-center justify-center gap-2 overflow-hidden rounded-none bg-transparent pt-2.5 pr-5 pb-2.5 pl-5 text-sm font-semibold text-white transition-all duration-300 hover:shadow-[0_0_30px_-5px_rgba(249,115,22,0.3)]" href="cv.pdf" download="Gabriel Dantas - Full-Stack Developer - CV.pdf" style="--spread: 90deg; --shimmer-color: #F97316; --speed: 3s; --cut: 1px;">
 <!-- Rotating Border Gradient Beam -->
 <div class="absolute inset-0 -z-20 overflow-hidden">
@@ -272,22 +270,15 @@ addUtilities({
 </nav>
 
 <!-- Main Hero Grid -->
-<main class="flex-grow grid grid-cols-1 lg:grid-cols-12 px-6 lg:px-12 my-12 lg:my-16 gap-12 lg:gap-y-16 relative">
+<main class="flex-grow grid grid-cols-1 lg:grid-cols-12 px-6 lg:px-12 my-12 lg:my-20 gap-12 relative min-h-[80vh]">
 <!-- Background Grid -->
 <div class="absolute inset-0 grid-bg pointer-events-none z-0"></div>
-<!-- Name: centered, full width, the largest type on the page -->
-<div class="lg:col-span-12 text-center z-20 relative animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.1s_both]">
-<h1 class="text-6xl md:text-8xl lg:text-[9rem] leading-[0.9] uppercase font-medium text-white tracking-tighter">
-Gabriel <span class="text-neutral-600">Dantas</span>
-</h1>
-<p class="mt-6 text-xs font-mono text-neutral-500 uppercase tracking-widest">Full-Stack Developer · João Pessoa, Brazil</p>
-</div>
 <!-- Left Column: Text -->
 <div class="lg:col-span-5 flex flex-col justify-center z-20 relative pt-10 lg:pt-0">
-<h2 class="lg:text-[7.5rem] leading-[0.9] uppercase animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.2s_both] text-6xl font-medium text-white tracking-tighter mb-8">
+<h1 class="lg:text-[7.5rem] leading-[0.9] uppercase animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.2s_both] text-6xl font-medium text-white tracking-tighter mb-8">
     Full<br class=""/>
 <span class="text-neutral-600">St</span>ack
-</h2>
+</h1>
 <p class="flex items-center gap-3 text-lg lg:text-xl text-white font-light tracking-tight mb-6 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.3s_both]">
 <span class="w-2 h-2 bg-[#F97316] shrink-0"></span>
 From drone show engineering to full-stack development
