@@ -29,7 +29,9 @@ Conteúdo de site e CV vive em `docs/timeline.md`.
 ```
 Gabriel Dantas - Full-Stack Developer - CV.pdf   o entregável atual
 Gabriel Dantas - Design Engineer - CV.pdf        versão anterior (histórico)
-cv-en.html                                       a fonte (edite aqui e regenere)
+cv-en.html                                       a fonte do PDF estilizado (barra lateral, foto, laranja)
+cv-en-ats.html                                   versão simples de uma coluna, fallback para triagem automática
+cv-photo.jpg                                     foto usada no currículo (mesma do site)
 docs/timeline.md                                 fonte do conteúdo (datas, feitos, notas)
 docs/superpowers/specs/2026-09-14-timeline-fullstack-design.md
                                                  posicionamento atual
@@ -47,7 +49,9 @@ cd ~/Desktop/Work/gabrielDev
   "file://$HOME/Desktop/Work/gabrielDev/cv-en.html"
 ```
 
-Verificado em 2026-09-14: 1 página. Para conferir o número de páginas sem abrir:
+Verificado em 2026-09-14: 1 página, 16 links clicáveis (site, e-mail, telefone, LinkedIn, GitHub,
+repos do Refund). Os links só saem clicáveis se estiverem em `<a href>`; `<span>` não vira link.
+Para a versão ATS, troque `cv-en.html` por `cv-en-ats.html` no comando. Para conferir páginas:
 
 ```sh
 python3 -c "import re;print(re.findall(rb'/Count (\\d+)',open('Gabriel Dantas - Full-Stack Developer - CV.pdf','rb').read()))"

@@ -3,205 +3,209 @@
 <head>
 <meta charset="utf-8">
 <title>Gabriel Dantas — Full-Stack Developer</title>
+<link href="site/assets/inter.css" rel="stylesheet">
 <style>
-  @page { size: Letter; margin: 0.34in 0.42in; }
+  @page { size: Letter; margin: 0; }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 8.2pt;
-    line-height: 1.22;
-    color: #14181d;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: #14181d; text-decoration: none; }
-
-  /* ---------- header ---------- */
-  .name {
-    font-size: 18.5pt;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    margin: 0 0 2pt;
-  }
-  .role {
-    font-size: 9.4pt;
-    font-weight: 600;
-    color: #33506e;
-    margin: 0 0 4pt;
-  }
-  .contact {
-    font-size: 8.1pt;
-    color: #4a545f;
-    margin: 0;
-  }
-  .contact span { white-space: nowrap; }
-  .sep { color: #b3bcc6; padding: 0 4pt; }
-
-  /* ---------- sections ---------- */
-  h2 {
+    font-family: 'Inter', "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 7.9pt;
-    font-weight: 700;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-    color: #33506e;
-    margin: 6pt 0 3pt;
-    padding-bottom: 2pt;
-    border-bottom: 0.6pt solid #ccd4dc;
+    line-height: 1.28;
+    color: #14181d;
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
-  .summary { margin: 6pt 0 0; }
+  a { color: inherit; text-decoration: none; }
+  .mono { font-family: "SF Mono", Menlo, Consolas, monospace; }
 
-  /* ---------- experience ---------- */
-  .job { margin-bottom: 4pt; }
-  .job-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 10pt;
+  /* ---------- page: sidebar + main ---------- */
+  .page { width: 8.5in; height: 11in; display: grid; grid-template-columns: 2.55in 1fr; overflow: hidden; }
+
+  /* ---------- sidebar ---------- */
+  .side { background: #0A0A0A; color: #d4d4d4; padding: 0.4in 0.28in 0.32in; display: flex; flex-direction: column; gap: 12pt; }
+  .photo { width: 1.4in; height: 1.4in; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto 2pt; border: 1.5pt solid #F97316; filter: grayscale(1); }
+  .side h2 {
+    font-size: 7.4pt; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #fff;
+    margin: 0 0 6pt; padding-bottom: 4pt; border-bottom: 0.6pt solid rgba(255,255,255,0.12);
+    display: flex; align-items: center; gap: 6pt;
   }
-  .job-title { font-weight: 700; font-size: 9.2pt; }
-  .job-title em { font-weight: 400; font-style: normal; color: #4a545f; }
-  .job-meta { font-size: 8pt; color: #4a545f; white-space: nowrap; }
-  .job-note { color: #4a545f; font-style: italic; margin: 0.5pt 0 2pt; }
+  .side h2::before { content: ''; width: 5pt; height: 5pt; background: #F97316; flex: none; }
+  .side ul { list-style: none; margin: 0; padding: 0; }
+  .side li { margin-bottom: 3pt; color: #d4d4d4; }
+  .contact li { display: block; font-size: 7.5pt; margin-bottom: 4pt; }
+  .contact .k { display: block; color: #737373; font-size: 6.2pt; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.5pt; }
+  .contact a { color: #fff; }
+  .skill-group { margin-bottom: 4.5pt; }
+  .skill-group .k { display: block; color: #F97316; font-size: 6.6pt; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 1.5pt; }
+  .skill-group p { margin: 0; color: #d4d4d4; font-size: 7.3pt; line-height: 1.32; }
+  .langs li { display: flex; justify-content: space-between; font-size: 7.9pt; }
+  .langs li span:last-child { color: #737373; }
+  .side .note { margin-top: auto; color: #737373; font-size: 6.6pt; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.5; }
+  .side .note a { color: #F97316; }
 
-  .project { font-weight: 600; margin: 4pt 0 1.5pt; }
-  .project span { font-weight: 400; color: #4a545f; }
+  /* ---------- main ---------- */
+  .main { padding: 0.4in 0.38in 0.3in 0.36in; }
+  header { margin-bottom: 9pt; padding-bottom: 8pt; border-bottom: 0.8pt solid #e5e5e5; }
+  .name { font-size: 24pt; font-weight: 700; letter-spacing: -0.03em; text-transform: uppercase; line-height: 0.95; margin: 0 0 4pt; color: #0A0A0A; }
+  .name span { color: #a3a3a3; }
+  .role { font-size: 9.6pt; font-weight: 500; color: #0A0A0A; margin: 0 0 3pt; }
+  .tag { display: flex; align-items: center; gap: 6pt; font-size: 7pt; letter-spacing: 0.14em; text-transform: uppercase; color: #737373; margin: 0; }
+  .tag::before { content: ''; width: 5pt; height: 5pt; background: #F97316; }
 
-  ul { margin: 2pt 0 0; padding-left: 12pt; }
-  li { margin-bottom: 1.3pt; }
-  li::marker { color: #8c99a6; }
+  .main h2 {
+    font-size: 7.2pt; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #F97316;
+    margin: 8pt 0 4pt; padding-bottom: 2.5pt; border-bottom: 0.6pt solid #e5e5e5;
+  }
+  .main h2:first-of-type { margin-top: 0; }
+  .summary { margin: 0; color: #404040; }
 
-  /* ---------- skills ---------- */
-  .skills { display: grid; grid-template-columns: 88pt 1fr; row-gap: 2.4pt; column-gap: 8pt; }
-  .skills dt { font-weight: 700; color: #33506e; font-size: 8.3pt; }
-  .skills dd { margin: 0; }
+  .job { margin-bottom: 5pt; padding-left: 10pt; border-left: 0.8pt solid #e5e5e5; position: relative; }
+  .job::before { content: ''; position: absolute; left: -3.2pt; top: 3pt; width: 5.5pt; height: 5.5pt; background: #F97316; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10pt; }
+  .job-title { font-weight: 700; font-size: 8.6pt; color: #0A0A0A; }
+  .job-title em { font-weight: 400; font-style: normal; color: #525252; }
+  .job-meta { font-size: 7.2pt; color: #737373; white-space: nowrap; letter-spacing: 0.04em; }
+  .job-note { color: #737373; font-style: italic; margin: 0.5pt 0 2pt; }
+  .job ul { margin: 2pt 0 0; padding-left: 9pt; list-style: none; }
+  .job li { margin-bottom: 1.2pt; position: relative; color: #262626; }
+  .job li::before { content: ''; position: absolute; left: -9pt; top: 4.2pt; width: 3pt; height: 3pt; background: #F97316; }
 
-  /* ---------- education ---------- */
-  .edu-row { display: flex; justify-content: space-between; gap: 10pt; margin-bottom: 2pt; }
-  .edu-row b { font-weight: 700; }
-  .edu-row .when { color: #4a545f; font-size: 8.1pt; white-space: nowrap; }
+  .edu-row { display: flex; justify-content: space-between; gap: 10pt; margin-bottom: 2pt; padding-left: 10pt; border-left: 0.8pt solid #e5e5e5; }
+  .edu-row b { font-weight: 700; color: #0A0A0A; }
+  .edu-row .when { color: #737373; font-size: 7.2pt; white-space: nowrap; }
 </style>
 </head>
 <body>
+<div class="page">
 
-  <header>
-    <p class="name">GABRIEL DANTAS</p>
-    <p class="role">Full-Stack Developer &middot; TypeScript, React, Python &amp; Design Systems</p>
-    <p class="contact">
-      <span>Jo&atilde;o Pessoa, Brazil (UTC&minus;3 &mdash; full overlap with US hours)</span><span class="sep">|</span><span>gabrieldantas1404@icloud.com</span><span class="sep">|</span><span>+55 83 99130-6309</span><br>
-      <span>linkedin.com/in/gabriel3dborges</span><span class="sep">|</span><span>github.com/gabrieldborges</span><span class="sep">|</span><span>gabrieldantas.up.railway.app</span>
+  <aside class="side">
+    <img class="photo" src="cv-photo.jpg" alt="Gabriel Dantas">
+
+    <section>
+      <h2>Contact</h2>
+      <ul class="contact">
+        <li><span class="k">Site</span><a href="https://gabrieldantas.up.railway.app/">gabrieldantas.up.railway.app</a></li>
+        <li><span class="k">Email</span><a href="mailto:gabrieldantas1404@icloud.com">gabrieldantas1404@icloud.com</a></li>
+        <li><span class="k">Phone</span><a href="tel:+5583991306309">+55 83 99130-6309</a></li>
+        <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/gabriel3dborges">linkedin.com/in/gabriel3dborges</a></li>
+        <li><span class="k">GitHub</span><a href="https://github.com/gabrieldborges">github.com/gabrieldborges</a></li>
+        <li><span class="k">Base</span><span>Jo&atilde;o Pessoa, Brazil &middot; UTC&minus;3</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <div class="skill-group"><span class="k">Backend</span><p>Python, FastAPI, SQLAlchemy, Alembic, NestJS, Prisma, PostgreSQL, Redis/BullMQ, S3, REST, WhatsApp API</p></div>
+      <div class="skill-group"><span class="k">Frontend</span><p>TypeScript, React, Next.js (App Router), Tailwind CSS, TanStack Query, React Hook Form + Zod, Radix UI, Vite</p></div>
+      <div class="skill-group"><span class="k">Design engineering</span><p>Design systems, design tokens, light/dark theming, responsive layout, data visualization, accessibility (ARIA, keyboard, screen readers)</p></div>
+      <div class="skill-group"><span class="k">Testing &amp; quality</span><p>Vitest, Testing Library, Playwright, pytest, architecture decision records, pinned runtimes, generated API contracts</p></div>
+      <div class="skill-group"><span class="k">3D &amp; real-time</span><p>Unreal Engine, Blender, Maya, procedural animation, drone-show choreography</p></div>
+    </section>
+
+    <section>
+      <h2>Languages</h2>
+      <ul class="langs">
+        <li><span>Portuguese</span><span>Native</span></li>
+        <li><span>English</span><span>Fluent</span></li>
+        <li><span>Spanish</span><span>Beginner</span></li>
+      </ul>
+    </section>
+
+    <p class="note">Open to remote contractor roles<br>Full overlap with US hours<br><a href="https://gabrieldantas.up.railway.app/">Portfolio &rarr;</a></p>
+  </aside>
+
+  <main class="main">
+    <header>
+      <p class="name">Gabriel <span>Dantas</span></p>
+      <p class="role">Full-Stack Developer &middot; TypeScript, React, Python &amp; Design Systems</p>
+      <p class="tag">From drone show engineering to full-stack development</p>
+    </header>
+
+    <h2>About</h2>
+    <p class="summary">
+      Full-stack developer who ships production systems end to end &mdash; Python and TypeScript backends, React frontends, design systems, and the tests that keep them honest. Sole engineer on two production systems for construction companies; owner of the entire web frontend of a healthcare product with paying customers. Before software: live drone shows, synchronizing up to 1,600 aircraft for audiences of 100,000.
     </p>
-  </header>
 
-  <p class="summary">
-    Full-stack developer who ships production systems end to end &mdash; Python and TypeScript
-    backends, React frontends, design systems, and the tests that keep them honest. Sole engineer
-    on two production systems for construction companies, and owner of the entire web frontend of a
-    healthcare product with paying customers. I came to software from live drone-show engineering,
-    directing 3D animation synchronized across fleets of up to 1,600 aircraft for audiences of 100,000.
-  </p>
+    <h2>Experience</h2>
 
-  <h2>Experience</h2>
-
-  <div class="job">
-    <div class="job-head">
-      <div class="job-title">Copesolo &amp; Concresolo <em>&mdash; Software Developer &middot; Technology &amp; Innovation Lead</em></div>
-      <div class="job-meta">Jan 2026 &ndash; Present &middot; Jo&atilde;o Pessoa, Brazil</div>
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Copesolo &amp; Concresolo <em>&mdash; Software Developer, Technology &amp; Innovation Lead</em></div>
+        <div class="job-meta">Jan 2026 &ndash; Present</div>
+      </div>
+      <p class="job-note">Largest foundation and geotechnical engineering firm in Northeast Brazil (~100 employees).</p>
+      <ul>
+        <li>Sole engineer of the company-wide system covering production tracking, warehouse inventory, machinery control and HR (employee and equipment documentation) &mdash; FastAPI + async SQLAlchemy + Alembic on Supabase Postgres; React + TypeScript + Tailwind.</li>
+        <li>Built a WhatsApp automation that inverted daily reporting: job sites now report to the site engineer and the system on their own, instead of her contacting every site each day. Production data became constant and reliable.</li>
+        <li>Built a two-regime payroll-bonus engine (hourly and per-meter) with row-level locking at payroll close, so concurrent requests cannot pay the same work twice.</li>
+        <li>Wrote the project's architecture decision records, pinned every runtime (Node, Python, Postgres), and generated API contracts from the backend so client and server cannot drift apart.</li>
+        <li>66 backend tests (pytest), 46 frontend unit tests, 13 Playwright end-to-end suites; ARIA, keyboard navigation and screen-reader affordances throughout.</li>
+      </ul>
     </div>
-    <p class="job-note">Largest foundation and geotechnical engineering firm in Northeast Brazil (~100 employees).</p>
-    <ul>
-      <li>Sole engineer of the company-wide system covering production tracking, warehouse inventory, machinery control and HR (employee and equipment documentation) &mdash; FastAPI + async SQLAlchemy + Alembic on Supabase Postgres; React + TypeScript + Tailwind.</li>
-      <li>Built a WhatsApp automation that inverted daily reporting: job sites now report to the site engineer and the system on their own, instead of her contacting every site each day. Production data became constant and reliable.</li>
-      <li>Built a two-regime payroll-bonus engine (hourly and per-meter) with row-level locking at payroll close, so concurrent requests cannot pay the same work twice.</li>
-      <li>Wrote the project's architecture decision records, pinned every runtime (Node, Python, Postgres), and generated API contracts from the backend so client and server cannot drift apart.</li>
-      <li>66 backend tests (pytest), 46 frontend unit tests, 13 Playwright end-to-end suites; ARIA, keyboard navigation and screen-reader affordances throughout.</li>
-    </ul>
-  </div>
 
-  <div class="job">
-    <div class="job-head">
-      <div class="job-title">FaturaMed <em>&mdash; Frontend &amp; Design System Engineer (freelance)</em></div>
-      <div class="job-meta">Apr 2026 &ndash; Aug 2026 &middot; Remote</div>
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">FaturaMed <em>&mdash; Frontend &amp; Design System Engineer</em></div>
+        <div class="job-meta">Apr &ndash; Aug 2026 &middot; Freelance</div>
+      </div>
+      <p class="job-note">Medical revenue-recovery platform for doctors billing health insurers in Brazil &mdash; in production, paying customers; AI reads claim forms from photos.</p>
+      <ul>
+        <li>Owned the entire web frontend: built the design system from brand identity to shipped UI &mdash; design tokens, typography, light and dark themes, and the shared component layer every screen uses.</li>
+        <li>Built the data-visualization layer (donut, funnel) on @nivo, legible down to phone widths; added TanStack Query caching and a persistent shell, replacing per-screen refetches with skeleton-driven loading states.</li>
+        <li>Established the project's frontend testing environment (Vitest + Testing Library), including a test asserting password reset never reveals whether an account exists.</li>
+      </ul>
     </div>
-    <p class="job-note">Medical revenue-recovery platform for doctors billing health insurers in Brazil &mdash; in production, paying customers; AI reads claim forms from photos.</p>
-    <ul>
-      <li>Owned the entire web frontend: built the design system from brand identity to shipped UI &mdash; design tokens, typography, light and dark themes, and the shared component layer every screen uses.</li>
-      <li>Built the data-visualization layer (donut, funnel) on @nivo, legible down to phone widths; added TanStack Query caching and a persistent shell, replacing per-screen refetches with skeleton-driven loading states.</li>
-      <li>Established the project's frontend testing environment (Vitest + Testing Library), including a test asserting password reset never reveals whether an account exists.</li>
-    </ul>
-  </div>
 
-  <div class="job">
-    <div class="job-head">
-      <div class="job-title">GBS Construtora <em>&mdash; Full-Stack Developer (freelance)</em></div>
-      <div class="job-meta">Feb 2025 &ndash; Nov 2025 &middot; Remote</div>
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">GBS Construtora <em>&mdash; Full-Stack Developer</em></div>
+        <div class="job-meta">Feb &ndash; Nov 2025 &middot; Freelance</div>
+      </div>
+      <ul>
+        <li>Led the company's digital transformation as its sole engineer: designed and built a proprietary, closed-source production-control system end to end &mdash; FastAPI + async SQLAlchemy on PostgreSQL; React + TypeScript + Tailwind frontend.</li>
+      </ul>
     </div>
-    <ul>
-      <li>Led the company's digital transformation as its sole engineer: designed and built a proprietary, closed-source production-control system end to end &mdash; FastAPI + async SQLAlchemy on PostgreSQL; React + TypeScript + Tailwind frontend.</li>
-    </ul>
-  </div>
 
-  <div class="job">
-    <div class="job-head">
-      <div class="job-title">Alok <em>&mdash; Drone Show Engineer</em></div>
-      <div class="job-meta">2024 &ndash; 2026</div>
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Alok &middot; Pixel Drone <em>&mdash; Drone Show Engineer</em></div>
+        <div class="job-meta">2024 &ndash; 2026</div>
+      </div>
+      <ul>
+        <li>Directed and engineered live drone shows: 3D animation choreographed and synchronized across fleets of up to 1,600 aircraft, for live audiences of 100,000; choreography from 3D animation through flight-ready output.</li>
+      </ul>
     </div>
-    <ul>
-      <li>Directed and engineered live drone shows: 3D animation choreographed and synchronized across fleets of up to 1,600 aircraft, performed for live audiences of 100,000.</li>
-    </ul>
-  </div>
 
-  <div class="job">
-    <div class="job-head">
-      <div class="job-title">Pixel Drone <em>&mdash; Drone Show Engineer</em></div>
-      <div class="job-meta">2024 &ndash; 2026</div>
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Damoda <em>&mdash; 3D Technical Artist</em></div>
+        <div class="job-meta">Shenzhen, China &middot; 2024</div>
+      </div>
+      <ul>
+        <li>Three-month engagement with a Chinese drone-show manufacturer, working across the animation-to-hardware pipeline.</li>
+      </ul>
     </div>
-    <ul>
-      <li>Built and validated show choreography for commercial drone productions, from 3D animation through flight-ready output.</li>
-    </ul>
-  </div>
 
-  <div class="job">
-    <div class="job-head">
-      <div class="job-title">Damoda <em>&mdash; 3D Technical Artist</em></div>
-      <div class="job-meta">Shenzhen, China &middot; 2024</div>
+    <h2>Open Source</h2>
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Refund <em>&mdash; full-stack refund-management system, solo, deployed</em></div>
+        <div class="job-meta">Jul &ndash; Aug 2026</div>
+      </div>
+      <p class="job-note"><a href="https://github.com/gabrieldborges/Refund-api">github.com/gabrieldborges/Refund-api</a> &middot; <a href="https://github.com/gabrieldborges/Refund">github.com/gabrieldborges/Refund</a></p>
+      <ul>
+        <li>FastAPI + Clean Architecture governed by 11 architecture decision records; typed settings, Problem Details errors, structured logging, contract tests, mocked and integration suites (PostgreSQL + MinIO), Docker, CI. React 19 frontend with component tests. Live on Railway.</li>
+      </ul>
     </div>
-    <ul>
-      <li>Three-month engagement with a Chinese drone-show manufacturer, working across the animation-to-hardware pipeline.</li>
-    </ul>
-  </div>
 
-  <h2>Open Source</h2>
-  <div class="job">
-    <div class="job-head">
-      <div class="job-title">Refund <em>&mdash; full-stack refund-management system, solo, deployed</em></div>
-      <div class="job-meta">Jul &ndash; Aug 2026 &middot; github.com/gabrieldborges/Refund-api</div>
-    </div>
-    <ul>
-      <li>FastAPI + Clean Architecture governed by 11 architecture decision records; typed settings, Problem Details errors, structured logging, contract tests, mocked and integration suites (PostgreSQL + MinIO), Docker, CI. React 19 frontend with component tests. Live on Railway.</li>
-    </ul>
-  </div>
+    <h2>Education</h2>
+    <div class="edu-row"><div><b>FIAP</b> &mdash; B.Sc. Software Engineering</div><div class="when">2024 &ndash; 2028 (expected)</div></div>
+    <div class="edu-row"><div><b>Animation Mentor</b> &mdash; Character Animation specialization, USA</div><div class="when">2024</div></div>
+    <div class="edu-row"><div><b>Faculdade M&eacute;li&egrave;s</b> &mdash; 3D Animation &amp; Design</div><div class="when">2022 &ndash; 2024</div></div>
+  </main>
 
-  <h2>Technical Skills</h2>
-  <dl class="skills">
-    <dt>Backend</dt>
-    <dd>Python, FastAPI, SQLAlchemy, Alembic, NestJS, Prisma, PostgreSQL, Redis/BullMQ, S3, REST, WhatsApp API integrations</dd>
-    <dt>Frontend</dt>
-    <dd>TypeScript, React, Next.js (App Router), Tailwind CSS, TanStack Query, React Hook Form + Zod, Radix UI, Vite</dd>
-    <dt>Design Engineering</dt>
-    <dd>Design systems, design tokens, theming (light/dark), responsive layout, data visualization, accessibility (ARIA, keyboard, screen readers)</dd>
-    <dt>Testing &amp; Quality</dt>
-    <dd>Vitest, Testing Library, Playwright, pytest, architecture decision records, pinned runtimes, generated API contracts</dd>
-    <dt>3D &amp; Real-Time</dt>
-    <dd>Unreal Engine, Blender, Maya, procedural animation, drone-show choreography</dd>
-  </dl>
-
-  <h2>Education</h2>
-  <div class="edu-row"><div><b>FIAP</b> &mdash; B.Sc. Software Engineering</div><div class="when">2024 &ndash; 2028 (expected)</div></div>
-  <div class="edu-row"><div><b>Animation Mentor</b> &mdash; Character Animation specialization, USA</div><div class="when">2024</div></div>
-  <div class="edu-row"><div><b>Faculdade M&eacute;li&egrave;s</b> &mdash; 3D Animation &amp; Design</div><div class="when">2022 &ndash; 2024</div></div>
-
-  <h2>Languages</h2>
-  <p style="margin:0">Portuguese (native) &middot; English (fluent) &middot; Spanish (beginner)</p>
-
+</div>
 </body>
 </html>
