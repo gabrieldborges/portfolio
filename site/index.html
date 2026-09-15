@@ -272,15 +272,22 @@ addUtilities({
 </nav>
 
 <!-- Main Hero Grid -->
-<main class="flex-grow grid grid-cols-1 lg:grid-cols-12 px-6 lg:px-12 my-12 lg:my-20 gap-12 relative min-h-[80vh]">
+<main class="flex-grow grid grid-cols-1 lg:grid-cols-12 px-6 lg:px-12 my-12 lg:my-16 gap-12 lg:gap-y-16 relative">
 <!-- Background Grid -->
 <div class="absolute inset-0 grid-bg pointer-events-none z-0"></div>
+<!-- Name: centered, full width, the largest type on the page -->
+<div class="lg:col-span-12 text-center z-20 relative animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.1s_both]">
+<h1 class="text-6xl md:text-8xl lg:text-[9rem] leading-[0.9] uppercase font-medium text-white tracking-tighter">
+Gabriel <span class="text-neutral-600">Dantas</span>
+</h1>
+<p class="mt-6 text-xs font-mono text-neutral-500 uppercase tracking-widest">Full-Stack Developer · João Pessoa, Brazil</p>
+</div>
 <!-- Left Column: Text -->
 <div class="lg:col-span-5 flex flex-col justify-center z-20 relative pt-10 lg:pt-0">
-<h1 class="lg:text-[7.5rem] leading-[0.9] uppercase animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.2s_both] text-6xl font-medium text-white tracking-tighter mb-8">
+<h2 class="lg:text-[7.5rem] leading-[0.9] uppercase animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.2s_both] text-6xl font-medium text-white tracking-tighter mb-8">
     Full<br class=""/>
 <span class="text-neutral-600">St</span>ack
-</h1>
+</h2>
 <p class="flex items-center gap-3 text-lg lg:text-xl text-white font-light tracking-tight mb-6 animate-on-scroll [animation:fadeSlideIn_0.8s_ease-out_0.3s_both]">
 <span class="w-2 h-2 bg-[#F97316] shrink-0"></span>
 From drone show engineering to full-stack development
@@ -801,7 +808,7 @@ From drone show engineering to full-stack development
 
 
 <!-- Sticky call to the timeline (hidden once the timeline is in view) -->
-<a id="timeline-cta" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] group isolate inline-flex items-center justify-center gap-3 overflow-hidden rounded-none bg-transparent pt-3 pr-6 pb-3 pl-6 text-xs font-semibold uppercase tracking-widest text-white transition-all duration-500 hover:shadow-[0_0_30px_-5px_rgba(249,115,22,0.4)]" href="#timeline" style="--spread: 90deg; --shimmer-color: #F97316; --speed: 3s; --cut: 1px;">
+<a id="timeline-cta" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] group isolate whitespace-nowrap inline-flex items-center justify-center gap-3 overflow-hidden rounded-none bg-transparent pt-3 pr-6 pb-3 pl-6 text-xs font-semibold uppercase tracking-widest text-white transition-all duration-500 hover:shadow-[0_0_30px_-5px_rgba(249,115,22,0.4)]" href="#timeline" style="--spread: 90deg; --shimmer-color: #F97316; --speed: 3s; --cut: 1px;">
 <div class="absolute inset-0 -z-20 overflow-hidden">
 <div class="absolute inset-[-100%] w-[300%] h-[300%] animate-[spin_3s_linear_infinite]">
 <div class="absolute inset-0" style="background: conic-gradient(from calc(270deg - (var(--spread) * 0.5)), transparent 0, var(--shimmer-color) var(--spread), transparent var(--spread));"></div>
